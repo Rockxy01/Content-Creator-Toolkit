@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <title>Text Content Tool</title>
+</head>
+<body>
+    <h1>Text Content Tool</h1>
+    <form method="POST">
+        <textarea name="text" placeholder="Enter your text here..." required></textarea>
+        <div>
+            <button type="submit" name="summarize">Summarize</button>
+            <button type="submit" name="plagiarism">Check Plagiarism</button>
+            <button type="submit" name="markdown">Format Markdown</button>
+            <button type="submit" name="quote">Random Quote</button>
+            <button type="submit" name="word_count">Count Words</button>
+        </div>
+    </form>
+
+    <h2>Summary:</h2>
+    <p>{{ summary }}</p>
+
+    <h2>Plagiarism Result:</h2>
+    <p>{{ plagiarism_result }}</p>
+
+    <h2>Formatted HTML:</h2>
+    <div>{{ formatted_html|safe }}</div>
+
+    <h2>Random Quote:</h2>
+    <p>{{ random_quote[0] }} - {{ random_quote[1] }}</p>
+
+    <h2>Word Count:</h2>
+    <p>Words: {{ word_count.words }}, Characters: {{ word_count.characters }}, Sentences: {{ word_count.sentences }}</p>
+</body>
+</html>
