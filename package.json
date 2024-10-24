@@ -6,7 +6,6 @@
   "author": "Rockxy01",
   "license": "ISC",
   "scripts": {
-    "start": "yarn start",
-    
+    "start": "yarn start"
   }
 }
