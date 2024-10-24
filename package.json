@@ -1,0 +1,8 @@
+{
+  "name": "Content-Creator-Toolkit",
+  "version": "1.0.0",
+  "description": "A brief description of your project",
+  "main": "index.js",
+  "author": "Rockxy01",
+  "license": "ISC"
+}
