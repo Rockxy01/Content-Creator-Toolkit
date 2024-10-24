@@ -4,8 +4,8 @@
   "description": "A brief description of your project",
   "main": "index.js",
   "author": "Rockxy01",
-  "license": "ISC"
-    "scripts": {
+  "license": "ISC",
+  "scripts": {
     "build": "babel src -d lib",
     "test": "jest"
   }
