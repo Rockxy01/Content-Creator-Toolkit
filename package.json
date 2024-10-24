@@ -5,4 +5,8 @@
   "main": "index.js",
   "author": "Rockxy01",
   "license": "ISC"
+    "scripts": {
+    "build": "babel src -d lib",
+    "test": "jest"
+  }
 }
