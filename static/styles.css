@@ -1,14 +1,74 @@
+/* Global Styles */
 body {
-    font-family: Arial, sans-serif;
-    margin: 20px;
+    background-color: #f0f4f8; /* Light background color */
+    font-family: 'Arial', sans-serif; /* Clean, modern font */
+    margin: 0;
+    padding: 0;
 }
 
+/* Container for main content */
+.container {
+    max-width: 600px; /* Limit the width for better readability */
+    margin: 50px auto; /* Center the container on the page */
+    padding: 20px; /* Space inside the container */
+    border-radius: 10px; /* Rounded corners */
+    background-color: #ffffff; /* White background for the container */
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+}
+
+/* Headings */
+h1 {
+    color: #333; /* Darker color for text */
+    text-align: center; /* Center align the heading */
+    font-size: 2.5em; /* Larger heading size */
+    margin-bottom: 20px; /* Space below the heading */
+}
+
+/* Form styles */
+form {
+    display: flex;
+    flex-direction: column; /* Arrange children in a column */
+}
+
+/* Input fields */
+input[type="text"], 
 textarea {
-    width: 100%;
-    height: 150px;
-    margin-bottom: 10px;
+    padding: 10px; /* Padding inside input fields */
+    margin-bottom: 15px; /* Space below each input */
+    border: 1px solid #ccc; /* Light border */
+    border-radius: 5px; /* Rounded corners */
+    font-size: 1em; /* Base font size */
+    transition: border-color 0.3s; /* Smooth transition for border color */
 }
 
-h2 {
-    margin-top: 20px;
+/* Input focus styles */
+input[type="text"]:focus, 
+textarea:focus {
+    border-color: #007bff; /* Blue border on focus */
+    outline: none; /* Remove default outline */
+}
+
+/* Button styles */
+button {
+    padding: 10px; /* Padding inside the button */
+    background-color: #007bff; /* Primary blue color */
+    color: #ffffff; /* White text color */
+    border: none; /* Remove default border */
+    border-radius: 5px; /* Rounded corners */
+    font-size: 1em; /* Base font size */
+    cursor: pointer; /* Pointer cursor on hover */
+    transition: background-color 0.3s, transform 0.2s; /* Smooth transitions */
+}
+
+/* Button hover effects */
+button:hover {
+    background-color: #0056b3; /* Darker blue on hover */
+    transform: translateY(-2px); /* Slight lift effect */
+}
+
+/* Footer styles */
+footer {
+    text-align: center; /* Center align footer text */
+    margin-top: 20px; /* Space above the footer */
+    color: #666; /* Light gray text */
 }
