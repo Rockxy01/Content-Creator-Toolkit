@@ -3,35 +3,401 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
-    <title>Text Content Tool</title>
+    <title>Content Creator Toolkit</title>
+    <style>
+        :root {
+            --primary-color: #6366f1;
+            --secondary-color: #4f46e5;
+            --background-color: #f9fafb;
+            --text-color: #1f2937;
+            --error-color: #ef4444;
+            --success-color: #10b981;
+            --warning-color: #f59e0b;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+        }
+
+        body {
+            background-color: var(--background-color);
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+
+        header {
+            background-color: white;
+            padding: 1rem;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        nav {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--primary-color);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-color);
+            font-weight: 500;
+        }
+
+        main {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+
+        .hero {
+            text-align: center;
+            padding: 4rem 0;
+        }
+
+        .hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            color: #4b5563;
+            margin-bottom: 2rem;
+        }
+
+        .tools-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .tool-card {
+            background: white;
+            border-radius: 8px;
+            padding: 1.5rem;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            transition: transform 0.2s;
+        }
+
+        .tool-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .tool-card h3 {
+            margin-bottom: 1rem;
+            color: var(--primary-color);
+        }
+
+        .button {
+            display: inline-block;
+            padding: 0.75rem 1.5rem;
+            background-color: var(--primary-color);
+            color: white;
+            text-decoration: none;
+            border-radius: 6px;
+            font-weight: 500;
+            transition: background-color 0.2s;
+            border: none;
+            cursor: pointer;
+        }
+
+        .button:hover {
+            background-color: var(--secondary-color);
+        }
+
+        textarea {
+            width: 100%;
+            height: 150px;
+            margin-bottom: 0.5rem;
+            padding: 0.5rem;
+            border: 1px solid #d1d5db;
+            border-radius: 4px;
+            resize: vertical;
+        }
+
+        .analysis-results {
+            margin-top: 1rem;
+            padding: 1rem;
+            background-color: #f3f4f6;
+            border-radius: 4px;
+        }
+
+        .score-indicator {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            margin-right: 0.5rem;
+        }
+
+        .score-good { background-color: var(--success-color); }
+        .score-warning { background-color: var(--warning-color); }
+        .score-bad { background-color: var(--error-color); }
+
+        .spelling-error {
+            text-decoration: underline wavy var(--error-color);
+            cursor: pointer;
+        }
+
+        footer {
+            background-color: white;
+            padding: 2rem 1rem;
+            margin-top: 4rem;
+            text-align: center;
+            color: #6b7280;
+        }
+
+        .tabs {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .tab {
+            padding: 0.5rem 1rem;
+            border: none;
+            background: none;
+            cursor: pointer;
+            border-bottom: 2px solid transparent;
+        }
+
+        .tab.active {
+            border-bottom: 2px solid var(--primary-color);
+            color: var(--primary-color);
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .hero h1 {
+                font-size: 2rem;
+            }
+        }
+    </style>
 </head>
 <body>
-    <h1>Text Content Tool</h1>
-    <form method="POST">
-        <textarea name="text" placeholder="Enter your text here..." required></textarea>
-        <div>
-            <button type="submit" name="summarize">Summarize</button>
-            <button type="submit" name="plagiarism">Check Plagiarism</button>
-            <button type="submit" name="markdown">Format Markdown</button>
-            <button type="submit" name="quote">Random Quote</button>
-            <button type="submit" name="word_count">Count Words</button>
-        </div>
-    </form>
+    <header>
+        <nav>
+            <div class="logo">CreatorToolkit</div>
+            <div class="nav-links">
+                <a href="#tools">Tools</a>
+                <a href="#resources">Resources</a>
+                <a href="#about">About</a>
+            </div>
+        </nav>
+    </header>
 
-    <h2>Summary:</h2>
-    <p>{{ summary }}</p>
+    <main>
+        <section class="hero">
+            <h1>Essential Tools for Content Creators</h1>
+            <p>Everything you need to create amazing content, all in one place.</p>
+            <a href="#tools" class="button">Explore Tools</a>
+        </section>
 
-    <h2>Plagiarism Result:</h2>
-    <p>{{ plagiarism_result }}</p>
+        <section id="tools" class="tools-grid">
+            <div class="tool-card">
+                <h3>SEO Analysis</h3>
+                <p>Analyze your content for SEO optimization.</p>
+                <textarea id="seoText" placeholder="Enter your content for SEO analysis..."></textarea>
+                <div class="tabs">
+                    <button class="tab active" onclick="switchTab(this, 'keywordAnalysis')">Keyword Analysis</button>
+                    <button class="tab" onclick="switchTab(this, 'readability')">Readability</button>
+                </div>
+                <button onclick="analyzeSEO()" class="button">Analyze SEO</button>
+                <div id="seoResults" class="analysis-results"></div>
+            </div>
 
-    <h2>Formatted HTML:</h2>
-    <div>{{ formatted_html|safe }}</div>
+            <div class="tool-card">
+                <h3>Spell Check & Grammar</h3>
+                <p>Check your content for spelling and grammar errors.</p>
+                <textarea id="spellCheckText" placeholder="Enter text to check spelling and grammar..."></textarea>
+                <button onclick="checkSpellingAndGrammar()" class="button">Check Spelling</button>
+                <div id="spellCheckResults" class="analysis-results"></div>
+            </div>
 
-    <h2>Random Quote:</h2>
-    <p>{{ random_quote[0] }} - {{ random_quote[1] }}</p>
+            <div class="tool-card">
+                <h3>Headline Analyzer</h3>
+                <p>Optimize your headlines for better engagement.</p>
+                <input type="text" id="headlineInput" placeholder="Enter your headline..." 
+                       style="width: 100%; padding: 0.5rem; margin-bottom: 1rem; border: 1px solid #d1d5db; border-radius: 4px;">
+                <button onclick="analyzeHeadline()" class="button">Analyze Headline</button>
+                <div id="headlineResults" class="analysis-results"></div>
+            </div>
+        </section>
+    </main>
 
-    <h2>Word Count:</h2>
-    <p>Words: {{ word_count.words }}, Characters: {{ word_count.characters }}, Sentences: {{ word_count.sentences }}</p>
+    <footer>
+        <p>© 2024 CreatorToolkit. All rights reserved.</p>
+    </footer>
+
+    <script>
+        // SEO Analysis
+        function analyzeSEO() {
+            const text = document.getElementById('seoText').value;
+            const results = document.getElementById('seoResults');
+            
+            // Simple keyword density analysis
+            const words = text.toLowerCase().match(/\b\w+\b/g) || [];
+            const wordCount = words.length;
+            const wordFreq = {};
+            words.forEach(word => {
+                wordFreq[word] = (wordFreq[word] || 0) + 1;
+            });
+
+            // Sort by frequency
+            const sortedWords = Object.entries(wordFreq)
+                .sort(([,a], [,b]) => b - a)
+                .slice(0, 5);
+
+            // Calculate readability (Flesch-Kincaid simplified)
+            const sentences = text.split(/[.!?]+/).length;
+            const readabilityScore = Math.round(206.835 - 1.015 * (wordCount/sentences) - 84.6 * (text.split(/[aeiou]/i).length/wordCount));
+
+            let analysisHTML = `
+                <h4>Content Analysis:</h4>
+                <p>Word Count: ${wordCount}</p>
+                <p>Sentence Count: ${sentences}</p>
+                <p>Readability Score: ${readabilityScore} 
+                   <span class="score-indicator ${readabilityScore > 60 ? 'score-good' : 'score-warning'}"></span>
+                </p>
+                <h4>Top Keywords:</h4>
+                <ul>
+                    ${sortedWords.map(([word, count]) => `
+                        <li>${word}: ${count} times (${Math.round(count/wordCount * 100)}%)</li>
+                    `).join('')}
+                </ul>
+                <h4>Recommendations:</h4>
+                <ul>
+                    ${wordCount < 300 ? '<li>Consider adding more content for better SEO impact</li>' : ''}
+                    ${sentences/wordCount > 0.1 ? '<li>Try using longer sentences for better flow</li>' : ''}
+                    ${readabilityScore < 60 ? '<li>Content might be too complex. Try simplifying.</li>' : ''}
+                </ul>
+            `;
+
+            results.innerHTML = analysisHTML;
+        }
+
+        // Spell Check
+        function checkSpellingAndGrammar() {
+            const text = document.getElementById('spellCheckText').value;
+            const resultsDiv = document.getElementById('spellCheckResults');
+            
+            const spellingMistakes = {
+                "teh": "the",
+                "recieve": "receive",
+                "adress": "address",
+                "definately": "definitely",
+            };
+
+            const grammarRules = [
+                {
+                    regex: /\b(I|i) (is|are|was|were)\b/g,
+                    correction: "I am",
+                    message: "Use 'I am' instead of 'I is/are/was/were'"
+                },
+                {
+                    regex: /\b(would of|could of|should of)\b/g,
+                    correction: match => match.replace("of", "have"),
+                    message: "Use 'would have/could have/should have' instead of 'would of/could of/should of'"
+                },
+            ];
+
+            let resultHTML = "<h4>Spelling & Grammar Issues:</h4><ul>";
+            
+            // Check for spelling mistakes
+            const words = text.split(/\s+/);
+            for (let word of words) {
+                const lowerWord = word.toLowerCase();
+                if (spellingMistakes[lowerWord]) {
+                    resultHTML += `<li>Spelling mistake: <strong>${word}</strong> - Suggested: <em>${spellingMistakes[lowerWord]}</em></li>`;
+                }
+            }
+
+            // Check for grammar issues
+            grammarRules.forEach(rule => {
+                let match;
+                while ((match = rule.regex.exec(text)) !== null) {
+                    const issueText = match[0];
+                    const correction = typeof rule.correction === "function" ? rule.correction(issueText) : rule.correction;
+                    resultHTML += `<li>Grammar issue: <strong>${issueText}</strong> - Suggested: <em>${correction}</em> (${rule.message})</li>`;
+                }
+            });
+
+            resultHTML += "</ul>";
+            resultsDiv.innerHTML = resultHTML;
+        }
+        // Headline Analyzer
+        function analyzeHeadline() {
+            const headline = document.getElementById('headlineInput').value;
+            const results = document.getElementById('headlineResults');
+
+            // Simple analysis criteria
+            const length = headline.length;
+            const words = headline.split(' ').length;
+            const hasNumber = /\d/.test(headline);
+            const hasEmotion = /(love|hate|amazing|incredible|awesome|terrible|best|worst)/i.test(headline);
+            
+            let score = 0;
+            if (length >= 20 && length <= 65) score += 30;
+            if (words >= 6 && words <= 12) score += 20;
+            if (hasNumber) score += 15;
+            if (hasEmotion) score += 15;
+            
+            let headlineHTML = `
+                <h4>Headline Score: ${score}/80</h4>
+                <div class="score-indicator ${score > 60 ? 'score-good' : score > 40 ? 'score-warning' : 'score-bad'}"></div>
+                <h4>Analysis:</h4>
+                <ul>
+                    <li>Length: ${length} characters ${length >= 20 && length <= 65 ? '✓' : '×'}</li>
+                    <li>Word Count: ${words} ${words >= 6 && words <= 12 ? '✓' : '×'}</li>
+                    <li>Contains Number: ${hasNumber ? '✓' : '×'}</li>
+                    <li>Emotional Words: ${hasEmotion ? '✓' : '×'}</li>
+                </ul>
+                <h4>Suggestions:</h4>
+                <ul>
+                    ${length < 20 ? '<li>Headline might be too short</li>' : ''}
+                    ${length > 65 ? '<li>Consider shortening the headline</li>' : ''}
+                    ${!hasNumber ? '<li>Including numbers can increase engagement</li>' : ''}
+                    ${!hasEmotion ? '<li>Consider adding emotional words</li>' : ''}
+                </ul>
+            `;
+
+            results.innerHTML = headlineHTML;
+        }
+
+        // Tab Switching
+        function switchTab(tab, analysis) {
+            const tabs = tab.parentElement.getElementsByClassName('tab');
+            for (let t of tabs) {
+                t.classList.remove('active');
+            }
+            tab.classList.add('active');
+            
+            // You would typically show/hide different analysis sections here
+            analyzeSEO(); // For demo, just re-run the analysis
+        }
+    </script>
 </body>
 </html>
